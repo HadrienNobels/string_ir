@@ -47,6 +47,16 @@ public class String {
 		return toCharArray()[index];
 	}
 	
+	/**
+	 * @pre | other != null
+	 */
+	public String concat(String other) {
+		char[] newCharacters = new char[characters.length + other.characters.length];
+		System.arraycopy(characters, 0, newCharacters, 0, characters.length);
+		System.arraycopy(other.characters, 0, newCharacters, characters.length, other.characters.length);
+		return new String(newCharacters);
+	}
+	
 	private String(char[] characters) {
 		this.characters = characters;
 	}
