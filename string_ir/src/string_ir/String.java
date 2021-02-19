@@ -1,5 +1,7 @@
 package string_ir;
 
+import java.util.Arrays;
+
 /**
  * Each instance of this class represents a sequence of text characters.
  * 
@@ -8,11 +10,20 @@ package string_ir;
 public class String {
 	
 	/**
+	 * @invar | characters != null
+	 * 
+	 * @representationObject
+	 */
+	private char[] characters;
+	
+	/**
 	 * @basic
 	 * 
 	 * @inspects | this
 	 */
-	public char[] toCharArray() { throw new RuntimeException("Not yet implemented"); }
+	public char[] toCharArray() {
+		return characters; // FOUT! Representation exposure!
+	}
 	
 	/**
 	 * @inspects | this
@@ -36,7 +47,27 @@ public class String {
 		return toCharArray()[index];
 	}
 	
+	private String(char[] characters) {
+		this.characters = characters;
+	}
+	
+	private static String EMPTY_STRING = new String(new char[] {});
+	
+	// factory method
+	/**
+	 * @inspects | characters
+	 * 
+	 * @pre The given array is not null
+	 *    | characters != null
+	 * @post The result is not null
+	 *    | result != null
+	 * @post This object's sequence of characters equals the sequence of characters in the given array
+	 *    | Arrays.equals(result.toCharArray(), characters)
+	 */
 	public static String valueOf(char[] characters) {
-		throw new RuntimeException("Not yet implemented");
+		if (characters.length == 0)
+			return EMPTY_STRING;
+		else
+			return new String(characters); // FOUT! Representation exposure!
 	}
 }
