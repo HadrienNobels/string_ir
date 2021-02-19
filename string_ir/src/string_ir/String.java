@@ -22,7 +22,7 @@ public class String {
 	 * @inspects | this
 	 */
 	public char[] toCharArray() {
-		return characters; // FOUT! Representation exposure!
+		return characters.clone(); // FOUT! Representation exposure!
 	}
 	
 	/**
@@ -68,6 +68,6 @@ public class String {
 		if (characters.length == 0)
 			return EMPTY_STRING;
 		else
-			return new String(characters); // FOUT! Representation exposure!
+			return new String(characters.clone());
 	}
 }
