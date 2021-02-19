@@ -10,11 +10,19 @@ import string_ir.String;
 public class StringList {
 	
 	/**
+	 * @invar | elements != null
+	 * @invar | Arrays.stream(elements).allMatch(e -> e != null)
+	 */
+	private String[] elements;
+	
+	/**
 	 * @basic
 	 * @post | result != null
 	 * @post | Arrays.stream(result).allMatch(e -> e != null)   // forall e in result. e != null
 	 */
-	public String[] getElements() { throw new RuntimeException("Not yet implemented"); }
+	public String[] getElements() {
+		return elements.clone();
+	}
 	
 	public String getConcatenation() {
 		String result = String.valueOf(new char[] {});
@@ -30,7 +38,7 @@ public class StringList {
 	 * @post
 	 *     | getElements().length == 0
 	 */
-	public StringList() { throw new RuntimeException("Not yet implemented"); }
+	public StringList() { elements = new String[0]; }
 	
 	/**
 	 * @pre The given element is not null
@@ -39,6 +47,11 @@ public class StringList {
 	 * @post | Arrays.equals(getElements(), 0, old(getElements().length), old(getElements()), 0, old(getElements().length))
 	 * @post | getElements()[old(getElements().length)] == element
 	 */
-	public void add(String element) { throw new RuntimeException("Not yet implemented"); }
+	public void add(String element) {
+		String[] newElements = new String[elements.length + 1];
+		System.arraycopy(elements, 0, newElements, 0, elements.length);
+		newElements[elements.length] = element;
+		elements = newElements;
+	}
 
 }
